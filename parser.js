@@ -1,30 +1,4 @@
 const fs = require("fs");
-/*
-const PARSER_TOKENS = [
-	{
-		name  : 'FOR_LOOP_OPEN_REGEXP',
-		value :  new RegExp('\{%=for[\\s]+[^\\s]+[\\s]+in[\\s]+[^=]+=%\}')
-	},
-	{
-		name  : 'FOR_LOOP_CLOSE_REGEXP',
-		value :  new RegExp('\{%=endfor=%\}')
-	},
-	{
-		name  : 'VARIABLE_REGEXP',
-		value :  new RegExp('\{%=(?!endfor|for[\\s]+[^\\s]+[\\s]+in[\\s]+[^\\s]+)[^=]+=%\}')
-	}
-]
-
-const VARIABLES_TOKEN = [
-	{
-		name  : 'VARS_FOR_LOOP',
-		value : new RegExp("\{%=for[\\s]+([^\\s])+[\\s]+in([\\s])+[^=]+=%\}")
-	},
-	{
-		name  : 'VARS_VARIABLE',
-		value : new RegExp("\{%=(?!endfor|for[\\s]+[^\\s]+[\\s]+in[\\s]+[^\\s]+)[^=]+=%\}")
-	},
-]*/
 
 const PARSER_TOKENS = {
 	'FOR_LOOP_OPEN_REGEXP' : new RegExp('\{%=for[\\s]+[^\\s]+[\\s]+in[\\s]+[^=]+=%\}'),
@@ -37,8 +11,68 @@ const VARIABLES_TOKEN = {
 	'VARS_VARIABLE' : new RegExp("\{%=(?!endfor|for[\\s]+[^\\s]+[\\s]+in[\\s]+[^\\s]+)([^=]+)=%\}", "g")
 }
 
-const data = fs.readFileSync('./readme-templates/README-placeholders.md').toString();
+//const data = fs.readFileSync('./readme-templates/README-placeholders.md').toString();
+const data = fs.readFileSync('./readme-templates/nesting-test.md').toString();
 
+const parseDots = (variableName) => {
+	return variableName.split('.');	
+}
+
+const getAliasesChain = (scope) => {
+	let curScope  = scope; 
+	let aliases   = []; 
+	do {
+		if (curScope.alias) {
+			aliases[curScope.alias] = curScope;
+		}
+	} while (curScope = curScope.parent);
+	return aliases;
+}
+
+const openForTag = (scope, curScope, line, fullVariableName, alias) => {
+	//console.log(scope, curScope, line, fullVariableName, alias);
+	if (fullVariableName.indexOf('.') === -1) {
+		curScope.childProps[fullVariableName] = {
+			instruction : 'for',
+			alias       : alias,
+			childProps  : {},
+			lineStart   : line,
+			lineEnd     : null,
+			parent      : curScope,
+			type        : 'object'
+		}
+		return curScope.childProps[fullVariableName];
+	} else {
+		const aliases        = getAliasesChain(curScope);
+		const splitVariable  = parseDots(fullVariableName);
+		console.log(splitVariable);
+	}
+}
+
+const parse = (text) => {
+	let textArr  = text.split(/\r\n|\n/);
+	let scope    = {
+		childProps : {},
+		lineStart  : 0,
+		lineEnd    : (textArr.length - 1),
+		parent     : null
+	}
+	let curScope = scope;
+	
+	for (let i=0;i<textArr.length; i++) {
+		let line  = textArr[i]; 
+		let match = null;
+
+		if (line.match(PARSER_TOKENS['FOR_LOOP_OPEN_REGEXP']) !== null) {
+			match = line.match(VARIABLES_TOKEN['VARS_FOR_LOOP']);
+			curScope = openForTag(scope, curScope, i, match[2], match[1])
+		}
+	}
+	console.log(scope);
+	return scope;
+}
+
+/*
 const parse = (text) => {
 	let textArr  = text.split(/\r\n|\n/);
 	let scope    = {
@@ -55,7 +89,6 @@ const parse = (text) => {
 			case line.match(PARSER_TOKENS['FOR_LOOP_OPEN_REGEXP']) !== null:
 				match = line.match(VARIABLES_TOKEN['VARS_FOR_LOOP']);
 				if (match) {
-					//console.log('FOR OPEN at line', i, match);
 					curScope.childProps[match[2]] = {
 						instruction : 'for',
 						alias       : match[1],
@@ -122,27 +155,6 @@ const parse = (text) => {
 									}
 								}
 							}
-							/*if (aliases[matchArray[j]]) {
-								_tempScope            = aliases[matchArray[j]];
-								_tempScope.type       = 'object';
-								_tempScope.childProps = _tempScope.childProps || {childProps : {}, parent : _tempScope};
-								_tempScope            = _tempScope.childProps[''];
-							} else {
-								console.log(_tempScope, matchArray[j]);
-								_tempScope.childProps[matchArray[j]] = {
-									instruction : 'variable',
-									lineStart   : i,
-									lineEnd     : i,
-									parent      : _tempScope.parent,
-									childProps  : {}
-								}
-
-								if (j == matchArray.length - 1) {
-									_tempScope.childProps[matchArray[j]].type = 'string';
-								} else {
-									_tempScope.childProps[matchArray[j]].type = 'object';
-								}
-							}*/
 						}
 					}
 				}
@@ -156,17 +168,13 @@ const parse = (text) => {
 
 	console.log(curScope);
 	for (let prop in curScope) {
-		console.log(curScope[prop])
+		let ppp = null;
+		if (curScope[prop] && curScope[prop].childProps) {
+			ppp = curScope[prop].childProps
+		}
+		console.log(curScope[prop], ppp)
 	}
 	return;
-	let matches = {};
-
-
-
-	for (let i = 0; i < PARSER_TOKENS.length; i++) {
-		matches[PARSER_TOKENS[i].name] = text.match(PARSER_TOKENS[i].value);
-	}
-	console.log(matches);
-}
+}*/
 
 parse(data);
