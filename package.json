@@ -1,6 +1,6 @@
 {
   "name": "@ibbatta/readme-generator",
-  "version": "0.1.0",
+  "version": "0.1.9",
   "description": "This project was born mainly to satisfy my desire for knowledge and to simplify my workflow. Being a curious (and also lazy) developer I have always wondered how avoid to waste my working time to write README.md files who fits perfectly project by project and that's why I wrote a tool to help me simplify and speed up these processes.",
   "main": "./src/index.js",
   "bin": {
@@ -9,26 +9,16 @@
   "homepage": "https://github.com/ibbatta/readme-generator",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ibbatta/readme-generator.git"
+    "url": "git+https://github.com/ibbatta/readme-generator.git"
   },
   "bugs": {
     "url": "https://github.com/ibbatta/readme-generator/issues",
     "email": "maurizio.battaghini+tech@gmail.com"
   },
-  "author": {
-    "name": "Maurizio Battaghini",
-    "email": "maurizio.battaghini+tech@gmail.com",
-    "url": "https://twitter.com/battago",
-    "social": {
-      "github": "https://github.com/ibbatta",
-      "twitter": "https://twitter.com/battago"
-    }
-  },
-  "contributors": [{
-    "name": "Pietro Siccardi",
-    "url": "http://github.com/pietrosiccardi",
-    "reason": "Moral support for the template engine"
-  }],
+  "author": "Maurizio Battaghini <maurizio.battaghini+tech@gmail.com> (https://twitter.com/battago)",
+  "contributors": [
+    "Maurizio Battaghini (http://github.com/ibbatta)"
+  ],
   "keywords": [
     "readme",
     "readme-template",
@@ -40,9 +30,8 @@
     "readme-quality"
   ],
   "engines": {
-    "node": ">= 8.9.x",
-    "yarn": ">= 1.9.x",
-    "npm": ">= 6.3.x"
+    "node": ">= 10.16.x",
+    "npm": ">= 6.9.x"
   },
   "license": "MIT",
   "private": false,
@@ -52,43 +41,47 @@
     "build:watch": "rm -rf ./dist && rollup --config ./rollup.config.babel.js --watch",
     "test": "lint-staged && jest",
     "test:watch": "jest --watch",
+    "prepare": "npm run build",
     "changelog": "auto-changelog",
-    "version": "auto-changelog -p && git add CHANGELOG.md",
-    "prepare": "npm run build"
+    "version": "auto-changelog -p && git add CHANGELOG.md"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "dependencies": {
-    "boxen": "^4.1.0",
-    "chalk": "^2.4.2",
-    "commander": "^2.20.0",
-    "figlet": "^1.2.3",
-    "handlebars": "^4.1.2",
-    "inquirer": "^6.3.1",
-    "js-yaml": "^3.13.1",
+    "boxen": "^4.2.0",
+    "chalk": "^4.1.0",
+    "commander": "^5.1.0",
+    "figlet": "^1.4.0",
+    "handlebars": "^4.7.6",
+    "immer": "^7.0.0",
+    "inquirer": "^7.1.0",
+    "js-yaml": "^3.14.0",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.3.4",
-    "@babel/node": "^7.4.5",
-    "@babel/preset-env": "^7.3.4",
-    "auto-changelog": "^1.13.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.1.0",
-    "babel-loader": "^8.0.6",
-    "core-js": "^3.1.4",
-    "eslint": "^5.14.1",
-    "eslint-config-airbnb": "17.1.0",
-    "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-jest": "^22.14.1",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "husky": "^3.0.0",
-    "jest": "^24.8.0",
-    "lint-staged": "^8.2.1",
-    "rollup": "^1.18.0",
-    "rollup-plugin-babel": "^4.3.3",
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "auto-changelog": "^2.0.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.0.1",
+    "babel-loader": "^8.1.0",
+    "core-js": "^3.6.5",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb": "18.1.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-jest": "^23.13.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
+    "lint-staged": "^10.2.10",
+    "rollup": "^2.15.0",
+    "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-copy-assets": "^2.0.1",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-terser": "^5.1.1"
+    "rollup-plugin-terser": "^6.1.0"
   },
   "husky": {
     "hooks": {
@@ -112,5 +105,14 @@
       "develop",
       "*"
     ]
+  },
+  "readmeGenerator": {
+    "social": {
+      "twitter": "https://twitter.com/battago",
+      "github": "https://github.com/ibbatta"
+    }
+  },
+  "directories": {
+    "test": "test"
   }
 }

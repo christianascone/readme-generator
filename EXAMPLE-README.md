@@ -1,8 +1,7 @@
-# **:triangular_flag_on_post: @IBBATTA/README-GENERATOR** (version 0.0.1)
+# **:triangular_flag_on_post: @IBBATTA/README-GENERATOR** (version 0.1.9)
 
-![node version](https://img.shields.io/badge/node->=8.9.x-brightgreen.svg)
-![yarn version](https://img.shields.io/badge/yarn->=1.9.x-brightgreen.svg)
-![npm version](https://img.shields.io/badge/npm->=6.3.x-brightgreen.svg)
+![node version](https://img.shields.io/badge/node->=10.16.x-brightgreen.svg)
+![npm version](https://img.shields.io/badge/npm->=6.9.x-brightgreen.svg)
 
 > This project was born mainly to satisfy my desire for knowledge and to simplify my workflow. Being a curious (and also lazy) developer I have always wondered how avoid to waste my working time to write README.md files who fits perfectly project by project and that's why I wrote a tool to help me simplify and speed up these processes.
 
@@ -15,6 +14,7 @@
 - [x] commander
 - [x] figlet
 - [x] handlebars
+- [x] immer
 - [x] inquirer
 - [x] js-yaml
 - [x] lodash
@@ -27,14 +27,13 @@
 
 Before cloning the repo **be sure** you have installed:
 
-- [**NODE**](https://www.google.com/search?q=how+to+install+node) (version >= 8.9.x)
-- [**YARN**](https://www.google.com/search?q=how+to+install+yarn) (version >= 1.9.x)
-- [**NPM**](https://www.google.com/search?q=how+to+install+npm) (version >= 6.3.x)
+- [**NODE**](https://www.google.com/search?q=how+to+install+node) (version >= 10.16.x)
+- [**NPM**](https://www.google.com/search?q=how+to+install+npm) (version >= 6.9.x)
 
 Then:
 
 - Choose a folder project in your system and switch in `cd [folder path]`
-- Clone the repo in your folder path `git clone https://github.com/ibbatta/readme-generator.git`
+- Clone the repo in your folder path `git clone git+https://github.com/ibbatta/readme-generator.git`
 
 ---
 
@@ -60,14 +59,14 @@ npm test
 
 ### **Editor setup**
 
-To keep consistency to the style of resources, I decided to stick to some shared rules that have to be applied to every
-project using some editors plugins. Plese be sure to disable / remove any other linters or custom configurations.
+To keep the style of resources consistent, I decided to stick to some shared rules that have to be applied to every
+project using some editors plugins. Plese be sure to disable / remove any other js/jsx linters or custom configurations.
 
 I have chosen to use
 
 - [ESLINT](https://www.google.com/search?q=eslint)
-- [EDITORCONFIG](https://www.google.com/search?q=editorconfig)
 - [PRETTIER](https://www.google.com/search?q=prettier)
+- [EDITORCONFIG](https://www.google.com/search?q=editorconfig)
 
 This
 works including a specific `.dotfile` in the root directory and making sure your editor has the necessary plugin.
@@ -86,7 +85,7 @@ works including a specific `.dotfile` in the root directory and making sure your
 
 ### **:busts_in_silhouette: Credits**
 
-- [Pietro Siccardi](http://github.com/pietrosiccardi) (Moral support for the template engine)
+- [Maurizio Battaghini](http://github.com/ibbatta)
 
 ---
 
@@ -113,8 +112,8 @@ Feel free to open issues or submit pull-requests to help me improving my work.
 _*Maurizio Battaghini*_
 
 > You can follow me on
-[github](https://github.com/ibbatta)&nbsp;&middot;&nbsp;[twitter](https://twitter.com/battago)
+[twitter](https://twitter.com/battago)&nbsp;&middot;&nbsp;[github](https://github.com/ibbatta)
 
 ---
 
-Copyright © 2019 [Maurizio Battaghini](https://twitter.com/battago).
+Copyright © 2020 [Maurizio Battaghini](https://twitter.com/battago).
